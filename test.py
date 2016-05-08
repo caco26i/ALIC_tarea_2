@@ -9,8 +9,9 @@ class Handler:
     def onButtonPressed(self, button):
         print("Hello World!")
 
-    def home_siguiente(self, tabla):
-        print("siguiente " + tabla)
+    def app_1_1_siguiente(self, button):
+        print("siguiente ")
+        builder.get_object(name)
 
 builder = Gtk.Builder()
 builder.add_from_file("example.glade")
