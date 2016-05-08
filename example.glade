@@ -51,82 +51,107 @@
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <child>
-          <object class="GtkNotebook" id="notebook1">
+          <object class="GtkNotebook" id="notebook_app_1">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <child>
-              <object class="GtkVBox" id="vbox1">
+              <object class="GtkFrame" id="frame1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">none</property>
                 <child>
-                  <object class="GtkTable" id="table1">
+                  <object class="GtkAlignment" id="alignment1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="n_rows">2</property>
-                    <property name="n_columns">2</property>
+                    <property name="border_width">15</property>
                     <child>
-                      <object class="GtkLabel" id="label5">
+                      <object class="GtkVBox" id="vbox1">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Tipo de Vector</property>
+                        <property name="spacing">15</property>
+                        <child>
+                          <object class="GtkTable" id="table1">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="n_rows">2</property>
+                            <property name="n_columns">2</property>
+                            <property name="row_spacing">15</property>
+                            <child>
+                              <object class="GtkLabel" id="label5">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Tipo de Vector</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label6">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Cantidad de Vectores</property>
+                              </object>
+                              <packing>
+                                <property name="top_attach">1</property>
+                                <property name="bottom_attach">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkComboBox" id="combobox_tipo_vector">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="model">liststore_tipo_vector</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">1</property>
+                                <property name="right_attach">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkComboBox" id="combobox_cantidad_vectores">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="model">liststore_cantidad_vectores</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">1</property>
+                                <property name="right_attach">2</property>
+                                <property name="top_attach">1</property>
+                                <property name="bottom_attach">2</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="button_siguiente">
+                            <property name="label" translatable="yes">Siguiente</property>
+                            <property name="width_request">10</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <signal name="clicked" handler="app_1_1_siguiente" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
                       </object>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label6">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Cantidad de Vectores</property>
-                      </object>
-                      <packing>
-                        <property name="top_attach">1</property>
-                        <property name="bottom_attach">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkComboBox" id="combobox_tipo_vector">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="model">liststore_tipo_vector</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="right_attach">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkComboBox" id="combobox_cantidad_vectores">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="model">liststore_cantidad_vectores</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="right_attach">2</property>
-                        <property name="top_attach">1</property>
-                        <property name="bottom_attach">2</property>
-                      </packing>
                     </child>
                   </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
                 </child>
-                <child>
-                  <object class="GtkButton" id="button_siguiente">
-                    <property name="label" translatable="yes">Siguiente</property>
-                    <property name="width_request">10</property>
+                <child type="label">
+                  <object class="GtkLabel" id="label4">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <signal name="clicked" handler="home_siguiente" swapped="no"/>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">&lt;b&gt;Seleccione el tipo y la cantidad de vectores&lt;/b&gt;</property>
+                    <property name="use_markup">True</property>
                   </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
                 </child>
               </object>
             </child>
@@ -141,42 +166,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkTable" id="table4">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="n_rows">3</property>
-                <property name="n_columns">3</property>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-              </object>
-              <packing>
-                <property name="position">1</property>
-              </packing>
+              <placeholder/>
             </child>
             <child type="tab">
               <object class="GtkLabel" id="label_tab_app_1_2">
