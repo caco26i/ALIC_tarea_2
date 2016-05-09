@@ -1,14 +1,25 @@
-#import numpy as np
-import gi
-gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
+
+import sympy
+from sympy import *
 import numpy as np
+
+
+import gi
+
+from sympy.core import symbol
+from sympy.solvers.solvers import solve_linear_system
+
+gi.require_version('Gtk', '3.0')
 
 
 class Handler:
 
     cantidad_vectores_app_1 = None
+
+    # R2, R3, o R1
     cantidad_elementos_vector_app_1 = None
+
 
     def app_1_1_siguiente(self, button):
         print("siguiente")
@@ -46,12 +57,13 @@ class Handler:
             notebook_app_1.next_page()
 
     def app_1_2_siguiente(self, button):
+        """
+        Con esta funcion se valida la tabla y lo siguiente de la app 1
+        :param button:
+        """
         print("siguiente")
-
         notebook_app_1 = builder.get_object("notebook_app_1")
-
         matriz_elementos = []
-
         if self.cantidad_vectores_app_1 is not None and self.cantidad_elementos_vector_app_1 is not None:
             isValid = True
             for i in range(0, self.cantidad_vectores_app_1):
@@ -67,23 +79,32 @@ class Handler:
                 if not isValid:
                     break
                 matriz_elementos.append(temp_list)
-
             if isValid:
+                # aqui va con numpy!!!
                 print(matriz_elementos)
-                matrix = np.array(matriz_elementos)
-                print(matrix)
-                lambdas, V = np.linalg.eig(matrix.T)
-                # The linearly dependent row vectors
-                print matrix[lambdas == 0, :]
-                if len(matrix[lambdas == 0, :]) > 0:
-                    label_result = builder.get_object("label_result_app1")
-                    label_result.set_text("Es Linealmente Dependiente")
+                matriz_prueba = sympy.Matrix(matriz_elementos)
+                print(matriz_prueba)
+                a, b, c = symbols('a, b, c')
+                if self.cantidad_elementos_vector_app_1 == 1:
+                    resultado_li = sympy.solve_linear_system(matriz_prueba, a)
+                elif self.cantidad_elementos_vector_app_1 == 2:
+                    resultado_li = sympy.solve_linear_system(matriz_prueba, a, b)
                 else:
+                    resultado_li = sympy.solve_linear_system(matriz_prueba, a, b, c)
+
+                is_li = true
+                for x in resultado_li:
+                    if resultado_li[x] != 0:
+                        is_li = False
+                        break
+                if (is_li):
                     label_result = builder.get_object("label_result_app1")
                     label_result.set_text("Es Linealmente Independiente")
+                else:
+                    label_result = builder.get_object("label_result_app1")
+                    label_result.set_text("Es Linealmente Dependiente")
+                print(resultado_li)
                 notebook_app_1.next_page()
-
-
     ##############################
     #    GETTERS AND SETTERS
     ##############################
