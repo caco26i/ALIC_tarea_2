@@ -2,13 +2,11 @@ from gi.repository import Gtk
 
 import sympy
 from sympy import *
-import numpy as np
 
 
 import gi
 
-from sympy.core import symbol
-from sympy.solvers.solvers import solve_linear_system
+
 
 gi.require_version('Gtk', '3.0')
 
@@ -19,8 +17,6 @@ class Handler:
 
     # R2, R3, o R1
     cantidad_elementos_vector_app_1 = None
-
-
     def app_1_1_siguiente(self, button):
         print("siguiente")
 
@@ -65,6 +61,7 @@ class Handler:
         notebook_app_1 = builder.get_object("notebook_app_1")
         matriz_elementos = []
         if self.cantidad_vectores_app_1 is not None and self.cantidad_elementos_vector_app_1 is not None:
+            print("Entro al if")
             isValid = True
             for i in range(0, self.cantidad_vectores_app_1):
                 temp_list = []
@@ -80,24 +77,27 @@ class Handler:
                     break
                 matriz_elementos.append(temp_list)
             if isValid:
-                # aqui va con numpy!!!
+                print("entro al isValid")
                 print(matriz_elementos)
                 matriz_prueba = sympy.Matrix(matriz_elementos)
+                print("Matriz generada")
                 print(matriz_prueba)
                 a, b, c = symbols('a, b, c')
+                print(self.cantidad_elementos_vector_app_1)
                 if self.cantidad_elementos_vector_app_1 == 1:
                     resultado_li = sympy.solve_linear_system(matriz_prueba, a)
                 elif self.cantidad_elementos_vector_app_1 == 2:
                     resultado_li = sympy.solve_linear_system(matriz_prueba, a, b)
                 else:
                     resultado_li = sympy.solve_linear_system(matriz_prueba, a, b, c)
-
+                print("resultado!")
+                print(resultado_li)
                 is_li = true
                 for x in resultado_li:
                     if resultado_li[x] != 0:
                         is_li = False
                         break
-                if (is_li):
+                if is_li:
                     label_result = builder.get_object("label_result_app1")
                     label_result.set_text("Es Linealmente Independiente")
                 else:
