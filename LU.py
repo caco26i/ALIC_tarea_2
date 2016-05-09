@@ -4,10 +4,6 @@ import scipy
 
 def lu(A):
 
-	# Retorna error en caso de que la matriz no sea cuadrada
-	if not A.shape[0] == A.shape[1]:
-		raise ValueError("Input matrix must be square")
-	
 	#Orden de la matriz
 	n = A.shape[0] 
 	
@@ -21,8 +17,10 @@ def lu(A):
 			L[j,i] = U[j,i]/U[i,i]
 			U[j,i:] = U[j,i:]-L[j,i]*U[i,i:]
 			U[j,i] = 0
-	return (L,U)
 	
+	return (L,U)
+
+
 def luEquation(A, b):
 	
 	L, U = lu(A)
@@ -34,6 +32,7 @@ def luEquation(A, b):
 	x = np.linalg.solve(U, y)
 	
 	return x
+
 
 def luInverse(A):
 	
@@ -49,6 +48,7 @@ def luInverse(A):
 	AInv = np.dot(LInv, UInv)
 	
 	return AInv, LInv, UInv
+	
 
 #Valores de prueba
 '''
@@ -118,3 +118,28 @@ def luEquation(A, b):
 	return x
 '''
 
+
+
+A = np.array([[0, -3, 3], [5, -2, -2], [5, -2, -2], [5, -2, -2], [5, -2, -2]])
+
+A = A.T
+
+b = np.array([0, 0, 0])
+
+pprint.pprint(A)
+
+x = np.linalg.lstsq(A, b)
+
+isLinear = True
+
+if (x[2] != len(A[0])):
+	isLinear = False
+else:
+	isLinear = True
+
+for i in range(len(x[0])):
+	if x[0][i] != 0:
+		isLinear = False
+
+
+print ("Is LI: " + str(isLinear))
