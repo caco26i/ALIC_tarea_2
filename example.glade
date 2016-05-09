@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.16.1 -->
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
-  <!-- interface-naming-policy toplevel-contextual -->
+  <requires lib="gtk+" version="3.0"/>
   <object class="GtkListStore" id="liststore_cantidad_vectores">
     <columns>
       <!-- column-name Cantidad -->
@@ -240,8 +240,6 @@
                                             <property name="invisible_char">●</property>
                                             <property name="primary_icon_activatable">False</property>
                                             <property name="secondary_icon_activatable">False</property>
-                                            <property name="primary_icon_sensitive">True</property>
-                                            <property name="secondary_icon_sensitive">True</property>
                                           </object>
                                           <packing>
                                             <property name="expand">True</property>
@@ -256,8 +254,6 @@
                                             <property name="invisible_char">●</property>
                                             <property name="primary_icon_activatable">False</property>
                                             <property name="secondary_icon_activatable">False</property>
-                                            <property name="primary_icon_sensitive">True</property>
-                                            <property name="secondary_icon_sensitive">True</property>
                                           </object>
                                           <packing>
                                             <property name="expand">True</property>
@@ -272,8 +268,6 @@
                                             <property name="invisible_char">●</property>
                                             <property name="primary_icon_activatable">False</property>
                                             <property name="secondary_icon_activatable">False</property>
-                                            <property name="primary_icon_sensitive">True</property>
-                                            <property name="secondary_icon_sensitive">True</property>
                                           </object>
                                           <packing>
                                             <property name="expand">True</property>
@@ -331,11 +325,8 @@
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="invisible_char">●</property>
-                                            <property name="invisible_char_set">True</property>
                                             <property name="primary_icon_activatable">False</property>
                                             <property name="secondary_icon_activatable">False</property>
-                                            <property name="primary_icon_sensitive">True</property>
-                                            <property name="secondary_icon_sensitive">True</property>
                                           </object>
                                           <packing>
                                             <property name="expand">True</property>
@@ -348,11 +339,8 @@
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="invisible_char">●</property>
-                                            <property name="invisible_char_set">True</property>
                                             <property name="primary_icon_activatable">False</property>
                                             <property name="secondary_icon_activatable">False</property>
-                                            <property name="primary_icon_sensitive">True</property>
-                                            <property name="secondary_icon_sensitive">True</property>
                                           </object>
                                           <packing>
                                             <property name="expand">True</property>
@@ -365,11 +353,8 @@
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="invisible_char">●</property>
-                                            <property name="invisible_char_set">True</property>
                                             <property name="primary_icon_activatable">False</property>
                                             <property name="secondary_icon_activatable">False</property>
-                                            <property name="primary_icon_sensitive">True</property>
-                                            <property name="secondary_icon_sensitive">True</property>
                                           </object>
                                           <packing>
                                             <property name="expand">True</property>
@@ -427,11 +412,8 @@
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="invisible_char">●</property>
-                                            <property name="invisible_char_set">True</property>
                                             <property name="primary_icon_activatable">False</property>
                                             <property name="secondary_icon_activatable">False</property>
-                                            <property name="primary_icon_sensitive">True</property>
-                                            <property name="secondary_icon_sensitive">True</property>
                                           </object>
                                           <packing>
                                             <property name="expand">True</property>
@@ -444,11 +426,8 @@
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="invisible_char">●</property>
-                                            <property name="invisible_char_set">True</property>
                                             <property name="primary_icon_activatable">False</property>
                                             <property name="secondary_icon_activatable">False</property>
-                                            <property name="primary_icon_sensitive">True</property>
-                                            <property name="secondary_icon_sensitive">True</property>
                                           </object>
                                           <packing>
                                             <property name="expand">True</property>
@@ -461,11 +440,8 @@
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="invisible_char">●</property>
-                                            <property name="invisible_char_set">True</property>
                                             <property name="primary_icon_activatable">False</property>
                                             <property name="secondary_icon_activatable">False</property>
-                                            <property name="primary_icon_sensitive">True</property>
-                                            <property name="secondary_icon_sensitive">True</property>
                                           </object>
                                           <packing>
                                             <property name="expand">True</property>
@@ -523,11 +499,8 @@
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="invisible_char">●</property>
-                                            <property name="invisible_char_set">True</property>
                                             <property name="primary_icon_activatable">False</property>
                                             <property name="secondary_icon_activatable">False</property>
-                                            <property name="primary_icon_sensitive">True</property>
-                                            <property name="secondary_icon_sensitive">True</property>
                                           </object>
                                           <packing>
                                             <property name="expand">True</property>
@@ -540,11 +513,8 @@
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="invisible_char">●</property>
-                                            <property name="invisible_char_set">True</property>
                                             <property name="primary_icon_activatable">False</property>
                                             <property name="secondary_icon_activatable">False</property>
-                                            <property name="primary_icon_sensitive">True</property>
-                                            <property name="secondary_icon_sensitive">True</property>
                                           </object>
                                           <packing>
                                             <property name="expand">True</property>
@@ -557,11 +527,8 @@
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="invisible_char">●</property>
-                                            <property name="invisible_char_set">True</property>
                                             <property name="primary_icon_activatable">False</property>
                                             <property name="secondary_icon_activatable">False</property>
-                                            <property name="primary_icon_sensitive">True</property>
-                                            <property name="secondary_icon_sensitive">True</property>
                                           </object>
                                           <packing>
                                             <property name="expand">True</property>
@@ -619,11 +586,8 @@
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="invisible_char">●</property>
-                                            <property name="invisible_char_set">True</property>
                                             <property name="primary_icon_activatable">False</property>
                                             <property name="secondary_icon_activatable">False</property>
-                                            <property name="primary_icon_sensitive">True</property>
-                                            <property name="secondary_icon_sensitive">True</property>
                                           </object>
                                           <packing>
                                             <property name="expand">True</property>
@@ -636,11 +600,8 @@
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="invisible_char">●</property>
-                                            <property name="invisible_char_set">True</property>
                                             <property name="primary_icon_activatable">False</property>
                                             <property name="secondary_icon_activatable">False</property>
-                                            <property name="primary_icon_sensitive">True</property>
-                                            <property name="secondary_icon_sensitive">True</property>
                                           </object>
                                           <packing>
                                             <property name="expand">True</property>
@@ -653,11 +614,8 @@
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="invisible_char">●</property>
-                                            <property name="invisible_char_set">True</property>
                                             <property name="primary_icon_activatable">False</property>
                                             <property name="secondary_icon_activatable">False</property>
-                                            <property name="primary_icon_sensitive">True</property>
-                                            <property name="secondary_icon_sensitive">True</property>
                                           </object>
                                           <packing>
                                             <property name="expand">True</property>
@@ -778,7 +736,7 @@
                         <property name="can_focus">False</property>
                         <property name="spacing">15</property>
                         <child>
-                          <object class="GtkLabel" id="label25">
+                          <object class="GtkLabel" id="label_result_app1">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">Resultado</property>
@@ -855,6 +813,9 @@
                   <object class="GtkTable" id="table3">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <child>
+                      <placeholder/>
+                    </child>
                     <child>
                       <placeholder/>
                     </child>

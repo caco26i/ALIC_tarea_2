@@ -2,6 +2,8 @@
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
+import numpy as np
+
 
 class Handler:
 
@@ -34,12 +36,12 @@ class Handler:
             for i in range(0, 5):
                 vector = builder.get_object("hbox_vector_"+str(i+1))
                 vector_visible = i+1 <= self.cantidad_vectores_app_1
-                vector.set_visible(vector_visible);
+                vector.set_visible(vector_visible)
                 if vector_visible:
                     for j in range(0, 3):
                         field = builder.get_object("entry_vector_"+str(i+1)+"_"+str(j+1))
                         field_visible = j+1 <= self.cantidad_elementos_vector_app_1
-                        field.set_visible(field_visible);
+                        field.set_visible(field_visible)
 
             notebook_app_1.next_page()
 
@@ -51,17 +53,35 @@ class Handler:
         matriz_elementos = []
 
         if self.cantidad_vectores_app_1 is not None and self.cantidad_elementos_vector_app_1 is not None:
+            isValid = True
             for i in range(0, self.cantidad_vectores_app_1):
                 temp_list = []
                 for j in range(0, self.cantidad_elementos_vector_app_1):
                     field = builder.get_object("entry_vector_"+str(i+1)+"_"+str(j+1))
-                    value_field = int(field.get_text())
-                    temp_list.append(value_field)
-
+                    if field.get_text().isdigit():
+                        value_field = float(field.get_text())
+                        temp_list.append(value_field)
+                    else:
+                        isValid = False
+                        break
+                if not isValid:
+                    break
                 matriz_elementos.append(temp_list)
 
-            print(matriz_elementos)
-            notebook_app_1.next_page()
+            if isValid:
+                print(matriz_elementos)
+                matrix = np.array(matriz_elementos)
+                print(matrix)
+                lambdas, V = np.linalg.eig(matrix.T)
+                # The linearly dependent row vectors
+                print matrix[lambdas == 0, :]
+                if len(matrix[lambdas == 0, :]) > 0:
+                    label_result = builder.get_object("label_result_app1")
+                    label_result.set_text("Es Linealmente Dependiente")
+                else:
+                    label_result = builder.get_object("label_result_app1")
+                    label_result.set_text("Es Linealmente Independiente")
+                notebook_app_1.next_page()
 
 
     ##############################
