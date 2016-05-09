@@ -1,5 +1,5 @@
 from gi.repository import Gtk
-
+import numpy as np
 import sympy
 from sympy import *
 
@@ -67,7 +67,7 @@ class Handler:
                 temp_list = []
                 for j in range(0, self.cantidad_elementos_vector_app_1):
                     field = builder.get_object("entry_vector_"+str(i+1)+"_"+str(j+1))
-                    if field.get_text().isdigit():
+                    if field.get_text().lstrip('-').isdigit():
                         value_field = float(field.get_text())
                         temp_list.append(value_field)
                     else:
@@ -79,25 +79,30 @@ class Handler:
             if isValid:
                 print("entro al isValid")
                 print(matriz_elementos)
-                matriz_prueba = sympy.Matrix(matriz_elementos)
-                print("Matriz generada")
-                print(matriz_prueba)
-                a, b, c = symbols('a, b, c')
+                temp_matrix = np.array(matriz_elementos)
+                temp_matrix = temp_matrix.T
                 print(self.cantidad_elementos_vector_app_1)
-                if self.cantidad_elementos_vector_app_1 == 1:
-                    resultado_li = sympy.solve_linear_system(matriz_prueba, a)
-                elif self.cantidad_elementos_vector_app_1 == 2:
-                    resultado_li = sympy.solve_linear_system(matriz_prueba, a, b)
+                if self.cantidad_elementos_vector_app_1 == 2:
+                    b = np.array([0, 0])
+                    resultado_li = np.linalg.lstsq(temp_matrix, b)
                 else:
-                    resultado_li = sympy.solve_linear_system(matriz_prueba, a, b, c)
+                    b = np.array([0, 0, 0])
+                    resultado_li = np.linalg.lstsq(temp_matrix, b)
+
                 print("resultado!")
                 print(resultado_li)
-                is_li = true
-                for x in resultado_li:
-                    if resultado_li[x] != 0:
-                        is_li = False
+                # indica si es LI o LD
+                isLinear = True
+                if resultado_li[2] != len(temp_matrix[0]):
+                    isLinear = False
+                else:
+                    isLinear = True
+
+                for i in range(len(resultado_li[0])):
+                    if resultado_li[0][i] != 0:
+                        isLinear = False
                         break
-                if is_li:
+                if isLinear:
                     label_result = builder.get_object("label_result_app1")
                     label_result.set_text("Es Linealmente Independiente")
                 else:
@@ -108,6 +113,7 @@ class Handler:
     ##############################
     #    GETTERS AND SETTERS
     ##############################
+
     def get_combo_value(self, combo):
         tree_iter = combo.get_active_iter()
         if tree_iter != None:

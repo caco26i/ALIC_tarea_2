@@ -132,7 +132,7 @@ x = np.linalg.lstsq(A, b)
 
 isLinear = True
 
-if (x[2] != len(A[0])):
+if x[2] != len(A[0]):
 	isLinear = False
 else:
 	isLinear = True
