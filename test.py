@@ -1,36 +1,24 @@
 from gi.repository import Gtk
 import numpy as np
-import sympy
 from sympy import *
-
-
 import gi
-
-
-
 gi.require_version('Gtk', '3.0')
 
 
 class Handler:
-
     cantidad_vectores_app_1 = None
-
     # R2, R3, o R1
     cantidad_elementos_vector_app_1 = None
+
     def app_1_1_siguiente(self, button):
         print("siguiente")
-
         notebook_app_1 = builder.get_object("notebook_app_1")
-        
         combobox_tipo_vector = builder.get_object("combobox_tipo_vector")
         combobox_tipo_vector_value = self.get_combo_value(combobox_tipo_vector)
-
         combobox_cantidad_vectores = builder.get_object("combobox_cantidad_vectores")
         combobox_cantidad_vectores_value = self.get_combo_value(combobox_cantidad_vectores)
-
         print(combobox_tipo_vector_value)
         print(combobox_cantidad_vectores_value)
-
         if combobox_tipo_vector_value is not None and combobox_cantidad_vectores_value is not None:
             self.cantidad_vectores_app_1 = combobox_cantidad_vectores_value
             if combobox_tipo_vector_value == "R":
@@ -39,7 +27,6 @@ class Handler:
                 self.cantidad_elementos_vector_app_1 = 2
             elif combobox_tipo_vector_value == "R3":
                 self.cantidad_elementos_vector_app_1 = 3
-
             for i in range(0, 5):
                 vector = builder.get_object("hbox_vector_"+str(i+1))
                 vector_visible = i+1 <= self.cantidad_vectores_app_1
@@ -49,7 +36,6 @@ class Handler:
                         field = builder.get_object("entry_vector_"+str(i+1)+"_"+str(j+1))
                         field_visible = j+1 <= self.cantidad_elementos_vector_app_1
                         field.set_visible(field_visible)
-
             notebook_app_1.next_page()
 
     def app_1_2_siguiente(self, button):
@@ -88,7 +74,6 @@ class Handler:
                 else:
                     b = np.array([0, 0, 0])
                     resultado_li = np.linalg.lstsq(temp_matrix, b)
-
                 print("resultado!")
                 print(resultado_li)
                 # indica si es LI o LD
@@ -97,7 +82,6 @@ class Handler:
                     isLinear = False
                 else:
                     isLinear = True
-
                 for i in range(len(resultado_li[0])):
                     if resultado_li[0][i] != 0:
                         isLinear = False
@@ -110,9 +94,8 @@ class Handler:
                     label_result.set_text("Es Linealmente Dependiente")
                 print(resultado_li)
                 notebook_app_1.next_page()
-    ##############################
+
     #    GETTERS AND SETTERS
-    ##############################
 
     def get_combo_value(self, combo):
         tree_iter = combo.get_active_iter()
@@ -124,8 +107,6 @@ class Handler:
 builder = Gtk.Builder()
 builder.add_from_file("example.glade")
 builder.connect_signals(Handler())
-
 window = builder.get_object("main_window")
 window.show_all()
-
 Gtk.main()
