@@ -22,27 +22,52 @@ def lu(A):
 			U[j,i:] = U[j,i:]-L[j,i]*U[i,i:]
 			U[j,i] = 0
 	return (L,U)
-    
+	
 def luEquation(A, b):
+	
 	L, U = lu(A)
 	
 	#Primero se resuelve Ly = b
 	y = np.linalg.solve(L, b)
-	
+		
 	#Despues se resuleve Ux = y
 	x = np.linalg.solve(U, y)
 	
 	return x
 
+def luInverse(A):
+	
+	L, U = lu(A)
+	
+	#Primero se resuelve la inversa de L
+	LInv = np.linalg.inv(L)
+	
+	#Despues se resuelve la invers de U
+	UInv = np.linalg.inv(U)
+	
+	#Al final se multiplican ambas inversas para resolver A inverso
+	AInv = np.dot(LInv, UInv)
+	
+	return AInv, LInv, UInv
+
+#Valores de prueba
+'''
 A = np.array([[4, -2, 1], [20, -7, 12], [-8, 13, 17]])
-b = np.array([11, 70, 17])
+
+AInv, LInv, UInv = luInverse(A)
+
+pprint.pprint(AInv)
+pprint.pprint(LInv)
+pprint.pprint(UInv)
+
+
+#A = np.array([[4, -2, 1], [20, -7, 12], [-8, 13, 17]])
+A = np.array([[-15, -6, 9], [35, -4, -12], [-30, 36, -16]])
+b = np.array([0, -9, -6])
 
 x = luEquation(A, b)
 
-pprint.pprint(x)
 
-
-'''   
 #A = np.array([[1,2,3], [4,5,6], [0,3,6]])
 A = np.array([[2, -1, 0, 0], [-1, 2, -1, 0], [0, -1, 2, -1], [0, 0, -1, 2]])
 print ("A: ")
@@ -53,3 +78,43 @@ pprint.pprint (L)
 print ("U: ")
 pprint.pprint (U)
 '''
+
+#Funciones de prueba
+'''
+def upperSol(A, b):
+    n = np.size(b)
+    x = np.zeros_like(b)
+
+    x[-1] = 1. / A[-1, -1] * b[-1]
+    for i in range(n-2, -1, -1):
+        x[i] = 1. / A[i, i] * (b[i] - np.sum(A[i, i+1:] * x[i+1:]))
+
+    return x
+
+	
+def steps(A, b, x):
+	for i in range (len (x)):
+		print(str(A[i]) + " = " + str(b[i]) + ", " + "x" + str(i + 1) + ": " + str(x[i]))
+		
+def luEquation(A, b):
+	
+	L, U = lu(A)
+	
+	pprint.pprint (L)
+	pprint.pprint (U)
+	
+	print("\n\n")
+	
+	#Primero se resuelve Ly = b
+	y = np.linalg.solve(L, b)
+	steps (L, b, y)
+	
+	print("\n\n")
+	
+	#Despues se resuleve Ux = y
+	x = np.linalg.solve(U, y)
+	steps (U, y, x)
+	
+	return x
+'''
+
