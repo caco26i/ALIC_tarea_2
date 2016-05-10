@@ -1,6 +1,9 @@
 import pprint
 import numpy as np
 import scipy
+import warnings
+
+warnings.filterwarnings('error')
 
 def lu(A):
 
@@ -11,14 +14,27 @@ def lu(A):
 	U = np.zeros((n,n),dtype='float64') 
 	U[:] = A 
 	np.fill_diagonal(L,1) #LLena la diagonal L con 1
-
-	for i in range(n-1):
-		for j in range(i+1,n):
-			L[j,i] = U[j,i]/U[i,i]
-			U[j,i:] = U[j,i:]-L[j,i]*U[i,i:]
-			U[j,i] = 0
 	
-	return (L,U)
+	#Si U[j,i]/U[i,i] es division de 0, no tiene factorizacion
+	#se ejecuta el except
+	
+	try:
+	
+		for i in range(n-1):
+			for j in range(i+1,n):
+				L[j,i] = U[j,i]/U[i,i]
+				U[j,i:] = U[j,i:]-L[j,i]*U[i,i:]
+				U[j,i] = 0
+			pprint.pprint(L)
+			pprint.pprint(U)
+				
+		return (L,U)
+	
+	except Warning:
+		
+		return "No tiene inversa"
+	
+	
 
 
 def luEquation(A, b):
@@ -49,6 +65,19 @@ def luInverse(A):
 	
 	return AInv, LInv, UInv
 	
+	
+A = np.array([[0, -1, 0, 0], [-1, 2, -1, 0], [0, -1, 2, -1], [0, 0, -1, 2]])
+try:
+	print ("A: ")
+	pprint.pprint (A)
+	L, U = lu(A)
+	print ("L: ")
+	pprint.pprint (L)
+	print ("U: ")
+	pprint.pprint (U)
+	
+except ValueError:
+	print (lu(A))
 
 #Valores de prueba
 '''
@@ -116,10 +145,7 @@ def luEquation(A, b):
 	steps (U, y, x)
 	
 	return x
-'''
-
-
-
+	
 A = np.array([[0, -3, 3], [5, -2, -2], [5, -2, -2], [5, -2, -2], [5, -2, -2]])
 
 A = A.T
@@ -143,3 +169,6 @@ for i in range(len(x[0])):
 
 
 print ("Is LI: " + str(isLinear))
+
+	
+'''
