@@ -9,9 +9,12 @@ class Handler:
     cantidad_vectores_app_1 = None
     # R2, R3, o R1
     cantidad_elementos_vector_app_1 = None
+    orden_matriz_app_2 = None
+
+    def onDeleteWindow(self, *args):
+        Gtk.main_quit(*args)
 
     def app_1_1_siguiente(self, button):
-        print("siguiente")
         notebook_app_1 = builder.get_object("notebook_app_1")
         combobox_tipo_vector = builder.get_object("combobox_tipo_vector")
         combobox_tipo_vector_value = self.get_combo_value(combobox_tipo_vector)
@@ -43,7 +46,7 @@ class Handler:
         Con esta funcion se valida la tabla y lo siguiente de la app 1
         :param button:
         """
-        print("siguiente")
+
         notebook_app_1 = builder.get_object("notebook_app_1")
         matriz_elementos = []
         if self.cantidad_vectores_app_1 is not None and self.cantidad_elementos_vector_app_1 is not None:
@@ -96,6 +99,21 @@ class Handler:
                 notebook_app_1.next_page()
 
     #    GETTERS AND SETTERS
+
+    def app_2_1_llenar_matriz(self, button):
+        notebook_app_2 = builder.get_object("notebook_app_2")
+        combobox_orden_matriz = builder.get_object("combobox_orden_matriz")
+        combobox_orden_matriz_value = self.get_combo_value(combobox_orden_matriz)
+        print(combobox_orden_matriz_value)
+        if combobox_orden_matriz_value is not None:
+            print("Entro al if")
+            self.orden_matriz_app_2 = combobox_orden_matriz_value
+            for i in range(0, 5):
+                for j in range(0, 5):
+                    field = builder.get_object("entry_matrix_" + str(i) + "_" + str(j))
+                    field_visible = j < self.orden_matriz_app_2 and i < self.orden_matriz_app_2
+                    field.set_visible(field_visible)
+            notebook_app_2.next_page()
 
     def get_combo_value(self, combo):
         tree_iter = combo.get_active_iter()
