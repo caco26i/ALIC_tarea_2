@@ -1,15 +1,15 @@
 from gi.repository import Gtk
 import numpy as np
-from sympy import *
 import gi
 gi.require_version('Gtk', '3.0')
-
 
 class Handler:
     cantidad_vectores_app_1 = None
     # R2, R3, o R1
     cantidad_elementos_vector_app_1 = None
     orden_matriz_app_2 = None
+
+    matriz_elementos_app_1 = None
 
     def onDeleteWindow(self, *args):
         Gtk.main_quit(*args)
@@ -66,17 +66,17 @@ class Handler:
                     break
                 matriz_elementos.append(temp_list)
             if isValid:
+                self.matriz_elementos_app_1 = matriz_elementos
+
                 print("entro al isValid")
                 print(matriz_elementos)
                 temp_matrix = np.array(matriz_elementos)
                 temp_matrix = temp_matrix.T
                 print(self.cantidad_elementos_vector_app_1)
-                if self.cantidad_elementos_vector_app_1 == 2:
-                    b = np.array([0, 0])
-                    resultado_li = np.linalg.lstsq(temp_matrix, b)
-                else:
-                    b = np.array([0, 0, 0])
-                    resultado_li = np.linalg.lstsq(temp_matrix, b)
+
+                b = np.array([0] * self.cantidad_elementos_vector_app_1)
+                resultado_li = np.linalg.lstsq(temp_matrix, b)
+
                 print("resultado!")
                 print(resultado_li)
                 # indica si es LI o LD
@@ -98,8 +98,6 @@ class Handler:
                 print(resultado_li)
                 notebook_app_1.next_page()
 
-    #    GETTERS AND SETTERS
-
     def app_2_1_llenar_matriz(self, button):
         notebook_app_2 = builder.get_object("notebook_app_2")
         combobox_orden_matriz = builder.get_object("combobox_orden_matriz")
@@ -115,13 +113,18 @@ class Handler:
                     field.set_visible(field_visible)
             notebook_app_2.next_page()
 
+    def app_1_3_generar_base(self, button):
+        matriz_base = []
+        for i in range(0, self.cantidad_vectores_app_1):
+            for j in range(0, self.cantidad_vectores_app_1):
+
+    #    GETTERS AND SETTERS
     def get_combo_value(self, combo):
         tree_iter = combo.get_active_iter()
         if tree_iter != None:
             model = combo.get_model()
             return model[tree_iter][0]
 
-        
 builder = Gtk.Builder()
 builder.add_from_file("example.glade")
 builder.connect_signals(Handler())
