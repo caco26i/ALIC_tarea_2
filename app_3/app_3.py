@@ -21,7 +21,6 @@ class App3:
         sys.exit(0)
 
 
-
 if __name__ == "__main__":
     main = App3()
     Gtk.main()
