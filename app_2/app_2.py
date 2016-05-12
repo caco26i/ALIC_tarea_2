@@ -7,7 +7,7 @@ gi.require_version('Gtk', '3.0')
 
 class App2:
     def __init__(self):
-        self.glade_file = "view_app_4.glade"
+        self.glade_file = "view_app_2.glade"
         self.builder = Gtk.Builder()
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
