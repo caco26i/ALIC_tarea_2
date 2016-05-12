@@ -8,7 +8,6 @@ class Handler:
     # R2, R3, o R1
     cantidad_elementos_vector_app_1 = None
     orden_matriz_app_2 = None
-
     matriz_elementos_app_1 = None
 
     def onDeleteWindow(self, *args):
@@ -117,13 +116,6 @@ class Handler:
         matriz_base = []
         for i in range(0, self.cantidad_vectores_app_1):
             for j in range(0, self.cantidad_vectores_app_1):
-
-    #    GETTERS AND SETTERS
-    def get_combo_value(self, combo):
-        tree_iter = combo.get_active_iter()
-        if tree_iter != None:
-            model = combo.get_model()
-            return model[tree_iter][0]
 
 builder = Gtk.Builder()
 builder.add_from_file("example.glade")
