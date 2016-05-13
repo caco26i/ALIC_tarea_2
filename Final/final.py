@@ -159,7 +159,7 @@ class App4:
                             isLI = False
                             break
 
-                    print(len(matriz_base) )
+                    print(len(matriz_base))
                     print(self.cantidad_elementos_vector_app_1)
                     if isLI:
                         print("isLI")
@@ -176,12 +176,13 @@ class App4:
                     break
 
         label_result = self.builder.get_object("label_base_app_1")
-        print(len(matriz_base) )
+        print(len(matriz_base))
         print(self.cantidad_elementos_vector_app_1)
         if len(matriz_base) >= self.cantidad_elementos_vector_app_1:
             label_result.set_text(str(matriz_base))
         else:
-            label_result.set_text("No se puede generar una base con los siguientes vectores \n" + str(self.matriz_elementos_app_1))
+            label_result.set_text("No se puede generar una base con los siguientes vectores \n" +
+                                  str(self.matriz_elementos_app_1))
 
         App_1.next_page()
 
@@ -242,7 +243,7 @@ class App4:
     #APP 2
         
     def boton_app_2_llenar_matriz(self, button):
-        App_2 = self.builder.get_object("App_2")
+        app_2 = self.builder.get_object("App_2")
         combobox_cant_vectores1 = self.builder.get_object("combobox_cant_vectores1")
         combobox_cant_vectores1_value = self.get_combo_value(combobox_cant_vectores1)
         print(combobox_cant_vectores1_value)
@@ -254,11 +255,13 @@ class App4:
                     field = self.builder.get_object("entry_matrix_" + str(i) + "_" + str(j))
                     field_visible = j < self.orden_matriz_app_2 and i < self.orden_matriz_app_2
                     field.set_visible(field_visible)
-            App_2.next_page()
+            app_2.next_page()
+
     def calcular_LU(self, button):
+        app_2 = self.builder.get_object("App_2")
         isValid = True
         matriz_elementos = []
-        for i in range (0, self.orden_matriz_app_2):
+        for i in range(0, self.orden_matriz_app_2):
             temp_list = []
             for j in range (0, self.orden_matriz_app_2):
                 field = self.builder.get_object("entry_matrix_"+str(i)+"_"+str(j))
@@ -273,22 +276,32 @@ class App4:
             matriz_elementos.append(temp_list)
 
         label = self.builder.get_object("label_base_app_2")
-        if isValid:            
+        if isValid:
             try:
                 L, U = lu(np.array(matriz_elementos))
-                label.set_text(str(L) + "  " + str(U))
+                label.set_text("L = \n" + str(L) + " \n\nU = \n" + str(U))
             except ValueError:
                 label.set_text('No tiene inversa')
+        app_2.next_page()
 
-    def luEquation(A, b):
+    def lu_equation(A, b):
+        '''
+        App 3
+        :param b:
+        :return:
+        '''
         L, U = lu(A)
-        #Primero se resuelve Ly = b
+        # Primero se resuelve Ly = b
         y = np.linalg.solve(L, b)
-        #Despues se resuleve Ux = y
+        # Despues se resuleve Ux = y
         x = np.linalg.solve(U, y)
         return x
 
-    def luInverse(A):
+    def lu_inverse(A):
+        """
+        ES la de app 4
+        :return:
+        """
         L, U = lu(A)
         # Primero se resuelve la inversa de L
         LInv = np.linalg.inv(L)
@@ -311,16 +324,17 @@ class App4:
             model = combo.get_model()
             return model[tree_iter][0]
 
+    # App 3
 
 warnings.filterwarnings('error')
 
 
 def lu(A):
     n = A.shape[0]     # Orden de la matriz
-    L = np.zeros((n,n),dtype='float64')
-    U = np.zeros((n,n),dtype='float64')
+    L = np.zeros((n, n), dtype='float64')
+    U = np.zeros((n, n), dtype='float64')
     U[:] = A
-    np.fill_diagonal(L,1) #LLena la diagonal L con 1
+    np.fill_diagonal(L, 1) #LLena la diagonal L con 1
 
     #Si U[j,i]/U[i,i] es division de 0, no tiene factorizacion
     #se ejecuta el except
@@ -329,9 +343,9 @@ def lu(A):
 
         for i in range(n-1):
             for j in range(i+1,n):
-                L[j,i] = U[j,i]/U[i,i]
-                U[j,i:] = U[j,i:]-L[j,i]*U[i,i:]
-                U[j,i] = 0
+                L[j, i] = U[j, i]/U[i, i]
+                U[j, i:] = U[j, i:]-L[j, i]*U[i, i:]
+                U[j, i] = 0
             # pprint.pprint(L)
             # pprint.pprint(U)
 
