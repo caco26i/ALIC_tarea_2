@@ -12,7 +12,6 @@ class App4:
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
         self.window = self.builder.get_object("main_window")
-
         self.window.show_all()
 
     def on_window_destroy(self, object, data=None):
