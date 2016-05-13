@@ -61,7 +61,7 @@ def luInverse(A):
 	return AInv, LInv, UInv
 	
 	
-A = np.array([[0, -1, 0, 0], [-1, 2, -1, 0], [0, -1, 2, -1], [0, 0, -1, 2]])
+A = np.array([[1, -1, 0, 0], [-1, 2, -1, 0], [0, -1, 2, -1], [0, 0, -1, 2]])
 try:
 	print ("A: ")
 	pprint.pprint (A)

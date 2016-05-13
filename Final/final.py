@@ -2,7 +2,9 @@ import gi
 import sys
 from gi.repository import Gtk
 import numpy as np
+import warnings
 gi.require_version('Gtk', '3.0')
+
 
 
 class App4:
@@ -239,6 +241,9 @@ class App4:
                 App_1.set_current_page(4)
 
     #APP 2
+    
+    warnings.filterwarnings('error')
+    
     def boton_app_2_llenar_matriz(self, button):
         App_2 = self.builder.get_object("App_2")
         combobox_cant_vectores1 = self.builder.get_object("combobox_cant_vectores1")
@@ -271,43 +276,15 @@ class App4:
                 break
             matriz_elementos.append(temp_list)
 
-        label = self.builder.get_object("label_resultado_LU")
-        if isValid:
-            print(matriz_elementos)
-            L, U = self.lu(np.array(matriz_elementos))
-
-            label.set_text('L = \n'.join(''.join(*zip(*row)) for row in L))
-
-
-
-
-            print(matriz_elementos);
-
-    def lu(A):
-        n = A.shape[0] 	# Orden de la matriz
-        L = np.zeros((n,n),dtype='float64')
-        U = np.zeros((n,n),dtype='float64')
-        U[:] = A
-        np.fill_diagonal(L,1) #LLena la diagonal L con 1
-
-        #Si U[j,i]/U[i,i] es division de 0, no tiene factorizacion
-        #se ejecuta el except
-
-        try:
-
-            for i in range(n-1):
-                for j in range(i+1,n):
-                    L[j,i] = U[j,i]/U[i,i]
-                    U[j,i:] = U[j,i:]-L[j,i]*U[i,i:]
-                    U[j,i] = 0
-                # pprint.pprint(L)
-                # pprint.pprint(U)
-
-            return (L,U)
-
-        except Warning:
-
-            return "No tiene inversa"
+        label = self.builder.get_object("label_base_app_2")
+        if isValid:            
+            try:
+				L, U = lu(np.array(matriz_elementos))
+			
+				label.set_text(str(L) + "  " + str(U))
+				
+			except ValueError:
+				label.set_text('No tiene inversa')
 
 
     def luEquation(A, b):
@@ -335,21 +312,6 @@ class App4:
 
         return AInv, LInv, UInv
 
-
-    A = np.array([[0, -1, 0, 0], [-1, 2, -1, 0], [0, -1, 2, -1], [0, 0, -1, 2]])
-    try:
-        print ("A: ")
-        # # pprint.pprint (A)
-        # L, U = lu(A)
-        # print ("L: ")
-        # pprint.pprint (L)
-        # print ("U: ")
-        # pprint.pprint (U)
-
-    except ValueError:
-        print (lu(A))
-
-
     def open_first_page(self, button):
         notebook.set_current_page(0)
 
@@ -360,6 +322,34 @@ class App4:
             model = combo.get_model()
             return model[tree_iter][0]
 
+
+warnings.filterwarnings('error')
+
+def lu(A):
+	n = A.shape[0] 	# Orden de la matriz
+	L = np.zeros((n,n),dtype='float64')
+	U = np.zeros((n,n),dtype='float64')
+	U[:] = A
+	np.fill_diagonal(L,1) #LLena la diagonal L con 1
+
+	#Si U[j,i]/U[i,i] es division de 0, no tiene factorizacion
+	#se ejecuta el except
+
+	try:
+
+		for i in range(n-1):
+			for j in range(i+1,n):
+				L[j,i] = U[j,i]/U[i,i]
+				U[j,i:] = U[j,i:]-L[j,i]*U[i,i:]
+				U[j,i] = 0
+			# pprint.pprint(L)
+			# pprint.pprint(U)
+
+		return (L,U)
+
+	except Warning:
+
+		return "No tiene inversa"
 
 if __name__ == "__main__":
     main = App4()
