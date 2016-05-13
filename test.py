@@ -153,6 +153,54 @@ class Handler:
 
         notebook_app_1.next_page()
 
+    def calcular_pertenece_generado(self, button):
+        notebook_app_1 = builder.get_object("notebook_app_1")
+        matriz_elementos = []
+        if self.cantidad_vectores_app_1 is not None and self.cantidad_elementos_vector_app_1 is not None:
+            print("Entro al if")
+            isValid = True
+            for i in range(0, 3):
+                temp_list = []
+                for j in range(0, self.cantidad_elementos_vector_app_1):
+                    field = builder.get_object("entry_"+str(i+1)+"_"+str(j+1))
+                    if field.get_text().lstrip('-').isdigit():
+                        value_field = float(field.get_text())
+                        temp_list.append(value_field)
+                    else:
+                        isValid = False
+                        break
+                if not isValid:
+                    break
+                matriz_elementos.append(temp_list)
+            if isValid:
+
+                print("entro al isValid")
+                print(matriz_elementos)
+                temp_matrix = np.array([matriz_elementos[0], matriz_elementos[1]])
+                temp_matrix = temp_matrix.T
+                print(self.cantidad_elementos_vector_app_1)
+
+                b = np.array(matriz_elementos[2])
+                resultado_li = np.linalg.lstsq(temp_matrix, b)
+
+                print("resultado!")
+                print(resultado_li)
+                # indica si es LI o LD
+
+                is_generado = resultado_li[2] == len(temp_matrix[0])
+
+                if isLinear:
+                    label_result = builder.get_object("label_result_app1")
+                    label_result.set_text("Es Linealmente Independiente")
+                    print("SI ES GENERADO")
+
+                else:
+                    label_result = builder.get_object("label_result_app1")
+                    label_result.set_text("Es Linealmente Dependiente")
+                    print("NO ES GENERADO")
+                notebook_app_1.next_page()
+
+
     def open_first_page(self, notebook):
         notebook.set_current_page(0)
 
