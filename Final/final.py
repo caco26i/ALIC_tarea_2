@@ -42,11 +42,11 @@ class App4:
         print(combobox_cant_vectores_value)
         tipo_operacion = ""
         if combobox_tipo_vectores_value is not None and combobox_cant_vectores_value is not None:
-            if combobox_cant_vectores_value != "W ∈ Gen = {U, V}":
 
+            if combobox_cant_vectores_value.isdigit():
                 self.cantidad_vectores_app_1 = int(combobox_cant_vectores_value)
                 tipo_operacion = "dependencia"
-            else:
+            else: # en el caso "W ∈ Gen = {U, V}"
                 self.cantidad_vectores_app_1 = 3
                 tipo_operacion = "generado"
 
