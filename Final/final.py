@@ -38,8 +38,15 @@ class App4:
         combobox_cant_vectores_value = self.get_combo_value(combobox_cant_vectores)
         print(combobox_tipo_vectores_value)
         print(combobox_cant_vectores_value)
+        tipo_operacion = ""
         if combobox_tipo_vectores_value is not None and combobox_cant_vectores_value is not None:
-            self.cantidad_vectores_app_1 = combobox_cant_vectores_value
+            if combobox_cant_vectores_value != "W ∈ Gen = {U,V}":
+                self.cantidad_vectores_app_1 = int(combobox_cant_vectores_value)
+                tipo_operacion = "dependencia"
+            else:
+                self.cantidad_vectores_app_1 = 3
+                tipo_operacion = "generado"
+
             if combobox_tipo_vectores_value == "R":
                 self.cantidad_elementos_vector_app_1 = 1
             elif combobox_tipo_vectores_value == "R2":
@@ -52,10 +59,19 @@ class App4:
                 vector.set_visible(vector_visible)
                 if vector_visible:
                     for j in range(0, 3):
-                        field = self.builder.get_object("entry_vector_"+str(i+1)+"_"+str(j+1))
                         field_visible = j+1 <= self.cantidad_elementos_vector_app_1
+
+                        if j < 3: #para ocultar los campos de la ventana de pertence al generado
+                            field_pertenece_gen = self.builder.get_object("entry_v_"+str(i)+"_"+str(j))
+                            field_pertenece_gen.set_visible(field_visible)
+
+                        field = self.builder.get_object("entry_vector_"+str(i+1)+"_"+str(j+1))
                         field.set_visible(field_visible)
-            App_1.next_page()
+            if tipo_operacion == "generado":
+                App_1.set_current_page(2)
+            else:
+                App_1.set_current_page(1)
+
 
     def calcular_dependencia(self, button):
         """
@@ -168,6 +184,60 @@ class App4:
             label_result.set_text("No se puede generar una base con los siguientes vectores \n" + str(self.matriz_elementos_app_1))
 
         App_1.next_page()
+
+    def calcular_pertenece_generado(self, button):
+        App_1 = self.builder.get_object("App_1")
+        matriz_elementos = []
+        if True:
+            print("Entro al if")
+            isValid = True
+            for i in range(0, 3):
+                temp_list = []
+                for j in range(0, self.cantidad_elementos_vector_app_1):
+                    field = self.builder.get_object("entry_v_"+str(i)+"_"+str(j))
+                    if field.get_text().lstrip('-').isdigit():
+                        value_field = float(field.get_text())
+                        temp_list.append(value_field)
+                    else:
+                        isValid = False
+                        break
+                if not isValid:
+                    break
+                matriz_elementos.append(temp_list)
+            if isValid:
+
+                print("entro al isValid")
+                print(matriz_elementos)
+                matrix_u_v = [matriz_elementos[0], matriz_elementos[1]]
+                print("matrix_u_v")
+                print(matrix_u_v)
+
+                temp_matrix = np.array(matrix_u_v)
+                temp_matrix = temp_matrix.T
+
+                print("matrix_u_v T")
+                print(temp_matrix)
+                print(self.cantidad_elementos_vector_app_1)
+
+                b = np.array(matriz_elementos[2])
+                resultado_li = np.linalg.lstsq(temp_matrix, b)
+
+                print("resultado!")
+                print(resultado_li)
+                # indica si es LI o LD
+
+                is_generado = resultado_li[2] == len(temp_matrix[0])
+
+                label_result = self.builder.get_object("label_base_app_1")
+                if is_generado:
+                    label_result.set_text("W SÍ ES GENERADO POR GEN(U,V)")
+                    print("SI ES GENERADO")
+
+                else:
+                    label_result.set_text("W NO ES GENERADO POR GEN(U,V)")
+                    print("NO ES GENERADO")
+
+                App_1.set_current_page(4)
 
     #GETTERS AND SETTERS
     def get_combo_value(self, combo):
