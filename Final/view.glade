@@ -1453,7 +1453,7 @@ Matriz</property>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
-                                    <property name="fill">True</property>
+                                    <property name="fill">False</property>
                                     <property name="position">0</property>
                                   </packing>
                                 </child>
@@ -1534,7 +1534,7 @@ Matriz</property>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
-                                    <property name="fill">True</property>
+                                    <property name="fill">False</property>
                                     <property name="position">1</property>
                                   </packing>
                                 </child>
@@ -1615,7 +1615,7 @@ Matriz</property>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
-                                    <property name="fill">True</property>
+                                    <property name="fill">False</property>
                                     <property name="position">2</property>
                                   </packing>
                                 </child>
@@ -1696,7 +1696,7 @@ Matriz</property>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
-                                    <property name="fill">True</property>
+                                    <property name="fill">False</property>
                                     <property name="position">3</property>
                                   </packing>
                                 </child>
@@ -1777,14 +1777,14 @@ Matriz</property>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
-                                    <property name="fill">True</property>
+                                    <property name="fill">False</property>
                                     <property name="position">4</property>
                                   </packing>
                                 </child>
                               </object>
                               <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
                                 <property name="position">1</property>
                               </packing>
                             </child>
@@ -1870,7 +1870,7 @@ Matriz</property>
                         <property name="can_focus">False</property>
                         <property name="spacing">15</property>
                         <child>
-                          <object class="GtkLabel" id="label_resultado_LU">
+                          <object class="GtkLabel" id="label_base_app_2">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">Resultado</property>
@@ -1964,7 +1964,7 @@ Matriz</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkComboBox" id="combobox_orden_app_4">
+                  <object class="GtkComboBox" id="combobox_orden_app_3">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="margin_left">30</property>
