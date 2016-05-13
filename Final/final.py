@@ -31,7 +31,6 @@ class App4:
     def onDeleteWindow(self, *args):
         Gtk.main_quit(*args)
 
-
     def boton_app_1_siguiente_1(self, button):
         App_1 = self.builder.get_object("App_1")
         combobox_tipo_vectores = self.builder.get_object("combobox_tipo_vectores")
@@ -42,7 +41,7 @@ class App4:
         print(combobox_cant_vectores_value)
         tipo_operacion = ""
         if combobox_tipo_vectores_value is not None and combobox_cant_vectores_value is not None:
-            if combobox_cant_vectores_value != "W ∈ Gen = {U,V}":
+            if combobox_cant_vectores_value != "W ∈ Gen = {U, V}":
                 self.cantidad_vectores_app_1 = int(combobox_cant_vectores_value)
                 tipo_operacion = "dependencia"
             else:
@@ -241,9 +240,7 @@ class App4:
                 App_1.set_current_page(4)
 
     #APP 2
-    
-    warnings.filterwarnings('error')
-    
+        
     def boton_app_2_llenar_matriz(self, button):
         App_2 = self.builder.get_object("App_2")
         combobox_cant_vectores1 = self.builder.get_object("combobox_cant_vectores1")
@@ -258,7 +255,6 @@ class App4:
                     field_visible = j < self.orden_matriz_app_2 and i < self.orden_matriz_app_2
                     field.set_visible(field_visible)
             App_2.next_page()
-
     def calcular_LU(self, button):
         isValid = True
         matriz_elementos = []
@@ -279,24 +275,17 @@ class App4:
         label = self.builder.get_object("label_base_app_2")
         if isValid:            
             try:
-				L, U = lu(np.array(matriz_elementos))
-			
-				label.set_text(str(L) + "  " + str(U))
-				
-			except ValueError:
-				label.set_text('No tiene inversa')
-
+                L, U = lu(np.array(matriz_elementos))
+                label.set_text(str(L) + "  " + str(U))
+            except ValueError:
+                label.set_text('No tiene inversa')
 
     def luEquation(A, b):
-
         L, U = lu(A)
-
         #Primero se resuelve Ly = b
         y = np.linalg.solve(L, b)
-
         #Despues se resuleve Ux = y
         x = np.linalg.solve(U, y)
-
         return x
 
     def luInverse(A):
@@ -304,10 +293,10 @@ class App4:
         # Primero se resuelve la inversa de L
         LInv = np.linalg.inv(L)
 
-        #Despues se resuelve la invers de U
+        # Despues se resuelve la invers de U
         UInv = np.linalg.inv(U)
 
-        #Al final se multiplican ambas inversas para resolver A inverso
+        # Al final se multiplican ambas inversas para resolver A inverso
         AInv = np.dot(LInv, UInv)
 
         return AInv, LInv, UInv
@@ -325,31 +314,32 @@ class App4:
 
 warnings.filterwarnings('error')
 
+
 def lu(A):
-	n = A.shape[0] 	# Orden de la matriz
-	L = np.zeros((n,n),dtype='float64')
-	U = np.zeros((n,n),dtype='float64')
-	U[:] = A
-	np.fill_diagonal(L,1) #LLena la diagonal L con 1
+    n = A.shape[0]     # Orden de la matriz
+    L = np.zeros((n,n),dtype='float64')
+    U = np.zeros((n,n),dtype='float64')
+    U[:] = A
+    np.fill_diagonal(L,1) #LLena la diagonal L con 1
 
-	#Si U[j,i]/U[i,i] es division de 0, no tiene factorizacion
-	#se ejecuta el except
+    #Si U[j,i]/U[i,i] es division de 0, no tiene factorizacion
+    #se ejecuta el except
 
-	try:
+    try:
 
-		for i in range(n-1):
-			for j in range(i+1,n):
-				L[j,i] = U[j,i]/U[i,i]
-				U[j,i:] = U[j,i:]-L[j,i]*U[i,i:]
-				U[j,i] = 0
-			# pprint.pprint(L)
-			# pprint.pprint(U)
+        for i in range(n-1):
+            for j in range(i+1,n):
+                L[j,i] = U[j,i]/U[i,i]
+                U[j,i:] = U[j,i:]-L[j,i]*U[i,i:]
+                U[j,i] = 0
+            # pprint.pprint(L)
+            # pprint.pprint(U)
 
-		return (L,U)
+        return (L,U)
 
-	except Warning:
+    except Warning:
 
-		return "No tiene inversa"
+        return "No tiene inversa"
 
 if __name__ == "__main__":
     main = App4()
