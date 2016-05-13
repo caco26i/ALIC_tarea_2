@@ -225,6 +225,21 @@ class Handler:
                     field.set_visible(field_visible)
             notebook_app_2.next_page()
 
+    def app_2_1_llenar_matriz(self, button):
+        notebook_app_2 = builder.get_object("notebook_app_2")
+        combobox_orden_matriz = builder.get_object("combobox_orden_matriz")
+        combobox_orden_matriz_value = self.get_combo_value(combobox_orden_matriz)
+        print(combobox_orden_matriz_value)
+        if combobox_orden_matriz_value is not None:
+            print("Entro al if")
+            self.orden_matriz_app_2 = combobox_orden_matriz_value
+            for i in range(0, 5):
+                for j in range(0, 5):
+                    field = builder.get_object("entry_matrix_" + str(i) + "_" + str(j))
+                    field_visible = j < self.orden_matriz_app_2 and i < self.orden_matriz_app_2
+                    field.set_visible(field_visible)
+            notebook_app_2.next_page()
+
     #GETTERS AND SETTERS
     def get_combo_value(self, combo):
         tree_iter = combo.get_active_iter()

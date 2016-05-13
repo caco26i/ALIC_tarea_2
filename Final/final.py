@@ -254,9 +254,104 @@ class App4:
                     field.set_visible(field_visible)
             App_2.next_page()
 
+    def calcular_LU(self, button):
+        isValid = True
+        matriz_elementos = []
+        for i in range (0, self.orden_matriz_app_2):
+            temp_list = []
+            for j in range (0, self.orden_matriz_app_2):
+                field = self.builder.get_object("entry_matrix_"+str(i)+"_"+str(j))
+                if field.get_text().lstrip('-').isdigit():
+                    value_field = float(field.get_text())
+                    temp_list.append(value_field)
+                else:
+                    isValid = False
+                    break
+            if not isValid:
+                break
+            matriz_elementos.append(temp_list)
+
+        label = self.builder.get_object("label_resultado_LU")
+        if isValid:
+            print(matriz_elementos)
+            L, U = self.lu(np.array(matriz_elementos))
+
+            label.set_text('L = \n'.join(''.join(*zip(*row)) for row in L))
+
+
+
+
+            print(matriz_elementos);
+
+    def lu(A):
+        n = A.shape[0] 	# Orden de la matriz
+        L = np.zeros((n,n),dtype='float64')
+        U = np.zeros((n,n),dtype='float64')
+        U[:] = A
+        np.fill_diagonal(L,1) #LLena la diagonal L con 1
+
+        #Si U[j,i]/U[i,i] es division de 0, no tiene factorizacion
+        #se ejecuta el except
+
+        try:
+
+            for i in range(n-1):
+                for j in range(i+1,n):
+                    L[j,i] = U[j,i]/U[i,i]
+                    U[j,i:] = U[j,i:]-L[j,i]*U[i,i:]
+                    U[j,i] = 0
+                # pprint.pprint(L)
+                # pprint.pprint(U)
+
+            return (L,U)
+
+        except Warning:
+
+            return "No tiene inversa"
+
+
+    def luEquation(A, b):
+
+        L, U = lu(A)
+
+        #Primero se resuelve Ly = b
+        y = np.linalg.solve(L, b)
+
+        #Despues se resuleve Ux = y
+        x = np.linalg.solve(U, y)
+
+        return x
+
+    def luInverse(A):
+        L, U = lu(A)
+        # Primero se resuelve la inversa de L
+        LInv = np.linalg.inv(L)
+
+        #Despues se resuelve la invers de U
+        UInv = np.linalg.inv(U)
+
+        #Al final se multiplican ambas inversas para resolver A inverso
+        AInv = np.dot(LInv, UInv)
+
+        return AInv, LInv, UInv
+
+
+    A = np.array([[0, -1, 0, 0], [-1, 2, -1, 0], [0, -1, 2, -1], [0, 0, -1, 2]])
+    try:
+        print ("A: ")
+        # # pprint.pprint (A)
+        # L, U = lu(A)
+        # print ("L: ")
+        # pprint.pprint (L)
+        # print ("U: ")
+        # pprint.pprint (U)
+
+    except ValueError:
+        print (lu(A))
+
+
     def open_first_page(self, button):
         notebook.set_current_page(0)
-
 
     #GETTERS AND SETTERS
     def get_combo_value(self, combo):
