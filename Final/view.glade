@@ -59,6 +59,26 @@
       </row>
     </data>
   </object>
+  <object class="GtkListStore" id="liststore_orden_app_3">
+    <columns>
+      <!-- column-name orden -->
+      <column type="gint"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">2</col>
+      </row>
+      <row>
+        <col id="0">3</col>
+      </row>
+      <row>
+        <col id="0">4</col>
+      </row>
+      <row>
+        <col id="0">5</col>
+      </row>
+    </data>
+  </object>
   <object class="GtkWindow" id="main_window">
     <property name="can_focus">False</property>
     <child>
@@ -1944,13 +1964,20 @@ Matriz</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkComboBox" id="combobox3">
+                  <object class="GtkComboBox" id="combobox_orden_app_4">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="margin_left">30</property>
                     <property name="margin_right">10</property>
                     <property name="margin_top">30</property>
                     <property name="margin_bottom">30</property>
+                    <property name="model">liststore_orden_app_3</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertext4"/>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
+                    </child>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -1969,6 +1996,7 @@ Matriz</property>
                     <property name="margin_right">10</property>
                     <property name="margin_top">80</property>
                     <property name="margin_bottom">10</property>
+                    <signal name="clicked" handler="button_next_1_app_3" swapped="no"/>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -2580,6 +2608,7 @@ Ecuacion</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <signal name="clicked" handler="calcular_app_3" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -2665,7 +2694,7 @@ Ecuacion</property>
               </packing>
             </child>
             <child type="tab">
-              <object class="GtkLabel" id="label9">
+              <object class="GtkLabel" id="label_resultado_app_">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Resultado</property>
@@ -2772,7 +2801,7 @@ Matriz</property>
               <object class="GtkLabel" id="label46">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">page 2</property>
+                <property name="label" translatable="yes">Llenar matriz</property>
               </object>
               <packing>
                 <property name="position">1</property>
