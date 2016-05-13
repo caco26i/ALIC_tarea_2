@@ -72,7 +72,6 @@ class App4:
             else:
                 App_1.set_current_page(1)
 
-
     def calcular_dependencia(self, button):
         """
         Con esta funcion se valida la tabla y lo siguiente de la app 1
@@ -238,6 +237,26 @@ class App4:
                     print("NO ES GENERADO")
 
                 App_1.set_current_page(4)
+
+    #APP 2
+    def boton_app_2_llenar_matriz(self, button):
+        App_2 = self.builder.get_object("App_2")
+        combobox_cant_vectores1 = self.builder.get_object("combobox_cant_vectores1")
+        combobox_cant_vectores1_value = self.get_combo_value(combobox_cant_vectores1)
+        print(combobox_cant_vectores1_value)
+        if combobox_cant_vectores1_value is not None:
+            print("Entro al if")
+            self.orden_matriz_app_2 = combobox_cant_vectores1_value
+            for i in range(0, 5):
+                for j in range(0, 5):
+                    field = self.builder.get_object("entry_matrix_" + str(i) + "_" + str(j))
+                    field_visible = j < self.orden_matriz_app_2 and i < self.orden_matriz_app_2
+                    field.set_visible(field_visible)
+            App_2.next_page()
+
+    def open_first_page(self, button):
+        notebook.set_current_page(0)
+
 
     #GETTERS AND SETTERS
     def get_combo_value(self, combo):
