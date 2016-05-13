@@ -18,13 +18,10 @@
   </object>
   <object class="GtkListStore" id="list_store_cant_vect_app_1">
     <columns>
-      <!-- column-name cant -->
+      <!-- column-name cant_vect_app_1 -->
       <column type="gchararray"/>
     </columns>
     <data>
-      <row>
-        <col id="0" translatable="yes">1</col>
-      </row>
       <row>
         <col id="0" translatable="yes">2</col>
       </row>
@@ -38,7 +35,7 @@
         <col id="0" translatable="yes">5</col>
       </row>
       <row>
-        <col id="0" translatable="yes">w &lt; Gen = {U, V}</col>
+        <col id="0" translatable="yes">W &lt; Gen = {U,V}</col>
       </row>
     </data>
   </object>
@@ -100,11 +97,9 @@
                     <property name="margin_right">10</property>
                     <property name="margin_top">20</property>
                     <property name="margin_bottom">20</property>
+                    <property name="model">list_store_cant_vect_app_1</property>
                     <child>
                       <object class="GtkCellRendererText" id="cellrenderertext1"/>
-                      <attributes>
-                        <attribute name="text">0</attribute>
-                      </attributes>
                     </child>
                   </object>
                   <packing>
@@ -122,7 +117,7 @@
                     <property name="margin_right">10</property>
                     <property name="margin_top">20</property>
                     <property name="margin_bottom">20</property>
-                    <property name="model">list_store_cant_vect_app_1</property>
+                    <property name="model">list_conjunto_vectores</property>
                     <child>
                       <object class="GtkCellRendererText" id="cellrenderertext2"/>
                       <attributes>
