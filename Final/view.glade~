@@ -35,7 +35,7 @@
         <col id="0" translatable="yes">5</col>
       </row>
       <row>
-        <col id="0" translatable="yes">W &lt; Gen = {U,V}</col>
+        <col id="0" translatable="yes">W ∈ Gen = {U,V}</col>
       </row>
     </data>
   </object>
