@@ -43,6 +43,7 @@ class App4:
         tipo_operacion = ""
         if combobox_tipo_vectores_value is not None and combobox_cant_vectores_value is not None:
             if combobox_cant_vectores_value != "W ∈ Gen = {U, V}":
+
                 self.cantidad_vectores_app_1 = int(combobox_cant_vectores_value)
                 tipo_operacion = "dependencia"
             else:
@@ -55,6 +56,7 @@ class App4:
                 self.cantidad_elementos_vector_app_1 = 2
             elif combobox_tipo_vectores_value == "R3":
                 self.cantidad_elementos_vector_app_1 = 3
+
             for i in range(0, 5):
                 vector = self.builder.get_object("hbox_vector_"+str(i+1))
                 vector_visible = i+1 <= self.cantidad_vectores_app_1
@@ -62,11 +64,9 @@ class App4:
                 if vector_visible:
                     for j in range(0, 3):
                         field_visible = j+1 <= self.cantidad_elementos_vector_app_1
-
                         if j < 3: #para ocultar los campos de la ventana de pertence al generado
                             field_pertenece_gen = self.builder.get_object("entry_v_"+str(i)+"_"+str(j))
                             field_pertenece_gen.set_visible(field_visible)
-
                         field = self.builder.get_object("entry_vector_"+str(i+1)+"_"+str(j+1))
                         field.set_visible(field_visible)
             if tipo_operacion == "generado":
@@ -351,10 +351,18 @@ class App4:
 
     def button_next_1_app_4(self, button):
         app_4 = self.builder.get_object("App_4")
-        combobox_orden_matriz = self.builder.get_object("combobox_orden_app_4")
+        combobox_orden_matriz = self.builder.get_object("combobox_orden_app4")
         combobox_orden_matriz_value = self.get_combo_value(combobox_orden_matriz)
         if combobox_orden_matriz_value is not None:
             self.orden_matrix_app_4 = combobox_orden_matriz_value
+            for i in range(0, 5):
+                for j in range(0, 5):
+                    # entry_matriz_app_4_1_0
+                    field = self.builder.get_object("entry_matriz_app_4_" + str(i) + "_" + str(j))
+                    field_visible = j < self.orden_matrix_app_4 and i < self.orden_matrix_app_4
+                    field.set_visible(field_visible)
+            app_4.next_page()
+
 
     def open_first_page(self, button):
         notebook.set_current_page(0)
@@ -365,6 +373,7 @@ class App4:
         if tree_iter != None:
             model = combo.get_model()
             return model[tree_iter][0]
+
 
     # App 3
 
