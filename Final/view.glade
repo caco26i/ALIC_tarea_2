@@ -100,6 +100,9 @@
                     <property name="model">list_store_cant_vect_app_1</property>
                     <child>
                       <object class="GtkCellRendererText" id="cellrenderertext1"/>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
                     </child>
                   </object>
                   <packing>
