@@ -6,7 +6,6 @@ import warnings
 gi.require_version('Gtk', '3.0')
 
 
-
 class App4:
     cantidad_vectores_app_1 = None
     # R2, R3, o R1
@@ -14,6 +13,8 @@ class App4:
     orden_matriz_app_2 = None
 
     matriz_elementos_app_1 = None
+    orden_matrix_app_3 = None
+    orden_matrix_app_4 = None
 
     def __init__(self):
         self.glade_file = "view.glade"
@@ -42,6 +43,7 @@ class App4:
         tipo_operacion = ""
         if combobox_tipo_vectores_value is not None and combobox_cant_vectores_value is not None:
             if combobox_cant_vectores_value != "W ∈ Gen = {U, V}":
+
                 self.cantidad_vectores_app_1 = int(combobox_cant_vectores_value)
                 tipo_operacion = "dependencia"
             else:
@@ -54,6 +56,7 @@ class App4:
                 self.cantidad_elementos_vector_app_1 = 2
             elif combobox_tipo_vectores_value == "R3":
                 self.cantidad_elementos_vector_app_1 = 3
+
             for i in range(0, 5):
                 vector = self.builder.get_object("hbox_vector_"+str(i+1))
                 vector_visible = i+1 <= self.cantidad_vectores_app_1
@@ -65,7 +68,6 @@ class App4:
                         if i < 3 and j <= self.cantidad_elementos_vector_app_1: #para ocultar los campos de la ventana de pertence al generado
                             field_pertenece_gen = self.builder.get_object("entry_v_"+str(i)+"_"+str(j))
                             field_pertenece_gen.set_visible(field_visible)
-
                         field = self.builder.get_object("entry_vector_"+str(i+1)+"_"+str(j+1))
                         field.set_visible(field_visible)
             if tipo_operacion == "generado":
@@ -159,7 +161,7 @@ class App4:
                             isLI = False
                             break
 
-                    print(len(matriz_base) )
+                    print(len(matriz_base))
                     print(self.cantidad_elementos_vector_app_1)
                     if isLI:
                         print("isLI")
@@ -176,12 +178,13 @@ class App4:
                     break
 
         label_result = self.builder.get_object("label_base_app_1")
-        print(len(matriz_base) )
+        print(len(matriz_base))
         print(self.cantidad_elementos_vector_app_1)
         if len(matriz_base) >= self.cantidad_elementos_vector_app_1:
             label_result.set_text(str(matriz_base))
         else:
-            label_result.set_text("No se puede generar una base con los siguientes vectores \n" + str(self.matriz_elementos_app_1))
+            label_result.set_text("No se puede generar una base con los siguientes vectores \n" +
+                                  str(self.matriz_elementos_app_1))
 
         App_1.next_page()
 
@@ -242,7 +245,7 @@ class App4:
     #APP 2
         
     def boton_app_2_llenar_matriz(self, button):
-        App_2 = self.builder.get_object("App_2")
+        app_2 = self.builder.get_object("App_2")
         combobox_cant_vectores1 = self.builder.get_object("combobox_cant_vectores1")
         combobox_cant_vectores1_value = self.get_combo_value(combobox_cant_vectores1)
         print(combobox_cant_vectores1_value)
@@ -254,11 +257,13 @@ class App4:
                     field = self.builder.get_object("entry_matrix_" + str(i) + "_" + str(j))
                     field_visible = j < self.orden_matriz_app_2 and i < self.orden_matriz_app_2
                     field.set_visible(field_visible)
-            App_2.next_page()
+            app_2.next_page()
+
     def calcular_LU(self, button):
+        app_2 = self.builder.get_object("App_2")
         isValid = True
         matriz_elementos = []
-        for i in range (0, self.orden_matriz_app_2):
+        for i in range(0, self.orden_matriz_app_2):
             temp_list = []
             for j in range (0, self.orden_matriz_app_2):
                 field = self.builder.get_object("entry_matrix_"+str(i)+"_"+str(j))
@@ -273,33 +278,92 @@ class App4:
             matriz_elementos.append(temp_list)
 
         label = self.builder.get_object("label_base_app_2")
-        if isValid:            
+        if isValid:
             try:
                 L, U = lu(np.array(matriz_elementos))
-                label.set_text(str(L) + "  " + str(U))
+                label.set_text("L = \n" + str(L) + " \n\nU = \n" + str(U))
             except ValueError:
                 label.set_text('No tiene inversa')
+        app_2.next_page()
 
-    def luEquation(A, b):
-        L, U = lu(A)
-        #Primero se resuelve Ly = b
-        y = np.linalg.solve(L, b)
-        #Despues se resuleve Ux = y
-        x = np.linalg.solve(U, y)
-        return x
+    # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # ++++++++++++++++++++++++ Aplicación 3 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    def luInverse(A):
-        L, U = lu(A)
-        # Primero se resuelve la inversa de L
-        LInv = np.linalg.inv(L)
+    def button_next_1_app_3(self, button):
+        app_3 = self.builder.get_object("App_3")
+        combobox_orden_matrices = self.builder.get_object("combobox_orden_app_3")
+        combobox_orden_matrices_value = self.get_combo_value(combobox_orden_matrices)
+        if combobox_orden_matrices_value is not None:
+            self.orden_matrix_app_3 = combobox_orden_matrices_value
+        for i in range(0, 5):
+            for j in range(0, 5):
+                # cambia el tamaño de la matriz
+                field = self.builder.get_object("entry_matrix_equ_lu_" + str(i) + "_" + str(j))
+                field_visible = j < self.orden_matrix_app_3 and i < self.orden_matrix_app_3
+                field.set_visible(field_visible)
+        for i in range(0, 5):
+            field_b = self.builder.get_object("entrada_b_" + str(i))
+            field_b_visible = self.orden_matrix_app_3 > i
+            field_b.set_visible(field_b_visible)
+        app_3.next_page()
 
-        # Despues se resuelve la invers de U
-        UInv = np.linalg.inv(U)
+    def calcular_app_3(self,button):
+        app_3 = self.builder.get_object("App_3")
+        isValid = True
+        matriz_elementos = []
+        # este es para recorrer la matriz
+        for i in range(0, self.orden_matrix_app_3):
+            temp_list = []
+            for j in range(0, self.orden_matrix_app_3):
+                field = self.builder.get_object("entry_matrix_equ_lu_" + str(i) + "_" + str(j))
+                if field.get_text().lstrip('-').isdigit():
+                    value_field = float(field.get_text())
+                    temp_list.append(value_field)
+                else:
+                    isValid = False
+                    break
+            if not isValid:
+                break
+            matriz_elementos.append(temp_list)
+        matriz_b = []
+        for i in range(0, self.orden_matrix_app_3):
+            field_b = self.builder.get_object("entrada_b_" + str(i))
+            if field_b.get_text().lstrip('-').isdigit():
+                matriz_b.append(float(field_b.get_text()))
+            else:
+                isValid = False
+                break
+        label = self.builder.get_object("label_resultado_app_3")
+        if isValid:
+            try:
+                x = lu_equation(np.array(matriz_elementos), matriz_b)
+                print("RESULTADO X: " + str(x))
+                label.set_text("La solución de la ecuación es: \n x = " + str(x))
 
-        # Al final se multiplican ambas inversas para resolver A inverso
-        AInv = np.dot(LInv, UInv)
 
-        return AInv, LInv, UInv
+            except ValueError:
+                label.set_text('No tiene solución.')
+            app_3.next_page()
+
+    # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # ++++++++++++++++++++++++ Aplicación 4 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    def button_next_1_app_4(self, button):
+        app_4 = self.builder.get_object("App_4")
+        combobox_orden_matriz = self.builder.get_object("combobox_orden_app4")
+        combobox_orden_matriz_value = self.get_combo_value(combobox_orden_matriz)
+        if combobox_orden_matriz_value is not None:
+            self.orden_matrix_app_4 = combobox_orden_matriz_value
+            for i in range(0, 5):
+                for j in range(0, 5):
+                    # entry_matriz_app_4_1_0
+                    field = self.builder.get_object("entry_matriz_app_4_" + str(i) + "_" + str(j))
+                    field_visible = j < self.orden_matrix_app_4 and i < self.orden_matrix_app_4
+                    field.set_visible(field_visible)
+            app_4.next_page()
+
 
     def open_first_page(self, button):
         notebook.set_current_page(0)
@@ -312,15 +376,17 @@ class App4:
             return model[tree_iter][0]
 
 
+    # App 3
+
 warnings.filterwarnings('error')
 
 
 def lu(A):
     n = A.shape[0]     # Orden de la matriz
-    L = np.zeros((n,n),dtype='float64')
-    U = np.zeros((n,n),dtype='float64')
+    L = np.zeros((n, n), dtype='float64')
+    U = np.zeros((n, n), dtype='float64')
     U[:] = A
-    np.fill_diagonal(L,1) #LLena la diagonal L con 1
+    np.fill_diagonal(L, 1) #LLena la diagonal L con 1
 
     #Si U[j,i]/U[i,i] es division de 0, no tiene factorizacion
     #se ejecuta el except
@@ -329,9 +395,9 @@ def lu(A):
 
         for i in range(n-1):
             for j in range(i+1,n):
-                L[j,i] = U[j,i]/U[i,i]
-                U[j,i:] = U[j,i:]-L[j,i]*U[i,i:]
-                U[j,i] = 0
+                L[j, i] = U[j, i]/U[i, i]
+                U[j, i:] = U[j, i:]-L[j, i]*U[i, i:]
+                U[j, i] = 0
             # pprint.pprint(L)
             # pprint.pprint(U)
 
@@ -340,6 +406,38 @@ def lu(A):
     except Warning:
 
         return "No tiene inversa"
+
+
+def lu_inverse(A):
+    """
+    ES la de app 4
+    :return:
+    """
+    L, U = lu(A)
+    # Primero se resuelve la inversa de L
+    LInv = np.linalg.inv(L)
+
+    # Despues se resuelve la invers de U
+    UInv = np.linalg.inv(U)
+
+    # Al final se multiplican ambas inversas para resolver A inverso
+    AInv = np.dot(LInv, UInv)
+
+    return AInv, LInv, UInv
+
+
+def lu_equation(A, b):
+    '''
+    App 3
+    :param b:
+    :return:
+    '''
+    L, U = lu(A)
+    # Primero se resuelve Ly = b
+    y = np.linalg.solve(L, b)
+    # Despues se resuleve Ux = y
+    x = np.linalg.solve(U, y)
+    return x
 
 if __name__ == "__main__":
     main = App4()
