@@ -8,6 +8,7 @@ class Handler:
     # R2, R3, o R1
     cantidad_elementos_vector_app_1 = None
     orden_matriz_app_2 = None
+
     matriz_elementos_app_1 = None
 
     def onDeleteWindow(self, *args):
@@ -97,6 +98,64 @@ class Handler:
                 print(resultado_li)
                 notebook_app_1.next_page()
 
+    def app_1_3_generar_base(self, button):
+        notebook_app_1 = builder.get_object("notebook_app_1")
+
+        matriz_base = []
+
+        b = np.array([0] * self.cantidad_elementos_vector_app_1)
+
+        for i in range(0, self.cantidad_vectores_app_1):
+            matriz_base = [self.matriz_elementos_app_1[i]]
+            for j in range(0, self.cantidad_vectores_app_1):
+                if i != j:
+                    temp_matrix = matriz_base + [self.matriz_elementos_app_1[j]]
+                    print (temp_matrix)
+                    temp_matrix = np.array(temp_matrix)
+                    temp_matrix = temp_matrix.T
+
+                    resultado_li = np.linalg.lstsq(temp_matrix, b)
+
+                    # indica si es LI o LD
+                    isLI = True
+                    if resultado_li[2] != len(temp_matrix[0]):
+                        isLI = False
+                    else:
+                        isLI = True
+                    for i in range(len(resultado_li[0])):
+                        if resultado_li[0][i] != 0:
+                            isLI = False
+                            break
+
+                    print(len(matriz_base) )
+                    print(self.cantidad_elementos_vector_app_1)
+                    if isLI:
+                        print("isLI")
+                        matriz_base = matriz_base + [self.matriz_elementos_app_1[j]]
+
+                    if len(matriz_base) >= self.cantidad_elementos_vector_app_1:
+                        print("len(matriz_base) >= self.cantidad_elementos_vector_app_1:")
+                        break
+            print("salio del for 2")
+            if len(matriz_base) >= self.cantidad_elementos_vector_app_1:
+                print("for 1 len(matriz_base) >= self.cantidad_elementos_vector_app_1:")
+                if isLI:
+                    print("for 1 isLI")
+                    break
+
+        label_result = builder.get_object("label_base_app_1")
+        print(len(matriz_base) )
+        print(self.cantidad_elementos_vector_app_1)
+        if len(matriz_base) >= self.cantidad_elementos_vector_app_1:
+            label_result.set_text(str(matriz_base))
+        else:
+            label_result.set_text("No se puede generar una base con los siguientes vectores \n" + str(self.matriz_elementos_app_1))
+
+        notebook_app_1.next_page()
+
+    def open_first_page(self, notebook):
+        notebook.set_current_page(0)
+
     def app_2_1_llenar_matriz(self, button):
         notebook_app_2 = builder.get_object("notebook_app_2")
         combobox_orden_matriz = builder.get_object("combobox_orden_matriz")
@@ -112,10 +171,12 @@ class Handler:
                     field.set_visible(field_visible)
             notebook_app_2.next_page()
 
-    def app_1_3_generar_base(self, button):
-        matriz_base = []
-        for i in range(0, self.cantidad_vectores_app_1):
-            for j in range(0, self.cantidad_vectores_app_1):
+    #GETTERS AND SETTERS
+    def get_combo_value(self, combo):
+        tree_iter = combo.get_active_iter()
+        if tree_iter != None:
+            model = combo.get_model()
+            return model[tree_iter][0]
 
 builder = Gtk.Builder()
 builder.add_from_file("example.glade")
