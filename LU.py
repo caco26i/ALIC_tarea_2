@@ -6,10 +6,7 @@ import warnings
 warnings.filterwarnings('error')
 
 def lu(A):
-
-	#Orden de la matriz
-	n = A.shape[0] 
-	
+	n = A.shape[0] 	# Orden de la matriz
 	L = np.zeros((n,n),dtype='float64') 
 	U = np.zeros((n,n),dtype='float64') 
 	U[:] = A 
@@ -51,10 +48,8 @@ def luEquation(A, b):
 
 
 def luInverse(A):
-	
 	L, U = lu(A)
-	
-	#Primero se resuelve la inversa de L
+	# Primero se resuelve la inversa de L
 	LInv = np.linalg.inv(L)
 	
 	#Despues se resuelve la invers de U
@@ -164,11 +159,9 @@ else:
 	isLinear = True
 
 for i in range(len(x[0])):
-	if x[0][i] != 0:
+ if x[0][i] != 0:
 		isLinear = False
 
 
 print ("Is LI: " + str(isLinear))
-
-	
 '''
