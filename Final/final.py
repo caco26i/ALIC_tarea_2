@@ -130,7 +130,7 @@ class App4:
                     label_result = self.builder.get_object("label_result_app1")
                     label_result.set_text("Es Linealmente Dependiente")
                 print(resultado_li)
-                App_1.next_page()
+                App_1.set_current_page(3)
 
     def generar_base(self, button):
         App_1 = self.builder.get_object("App_1")
@@ -277,7 +277,7 @@ class App4:
                 break
             matriz_elementos.append(temp_list)
 
-        label = self.builder.get_object("label_base_app_2")
+        label = self.builder.get_object("label_resultado_LU")
         if isValid:
             try:
                 L, U = lu(np.array(matriz_elementos))
