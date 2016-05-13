@@ -62,7 +62,7 @@ class App4:
                     for j in range(0, 3):
                         field_visible = j+1 <= self.cantidad_elementos_vector_app_1
 
-                        if j < 3: #para ocultar los campos de la ventana de pertence al generado
+                        if i < 3 and j <= self.cantidad_elementos_vector_app_1: #para ocultar los campos de la ventana de pertence al generado
                             field_pertenece_gen = self.builder.get_object("entry_v_"+str(i)+"_"+str(j))
                             field_pertenece_gen.set_visible(field_visible)
 

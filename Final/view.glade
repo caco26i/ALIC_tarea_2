@@ -1496,7 +1496,7 @@ Matriz</property>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
-                                    <property name="fill">False</property>
+                                    <property name="fill">True</property>
                                     <property name="position">0</property>
                                   </packing>
                                 </child>
@@ -1592,7 +1592,7 @@ Matriz</property>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
-                                    <property name="fill">False</property>
+                                    <property name="fill">True</property>
                                     <property name="position">1</property>
                                   </packing>
                                 </child>
@@ -1688,7 +1688,7 @@ Matriz</property>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
-                                    <property name="fill">False</property>
+                                    <property name="fill">True</property>
                                     <property name="position">2</property>
                                   </packing>
                                 </child>
@@ -1784,7 +1784,7 @@ Matriz</property>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
-                                    <property name="fill">False</property>
+                                    <property name="fill">True</property>
                                     <property name="position">3</property>
                                   </packing>
                                 </child>
@@ -1880,14 +1880,14 @@ Matriz</property>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
-                                    <property name="fill">False</property>
+                                    <property name="fill">True</property>
                                     <property name="position">4</property>
                                   </packing>
                                 </child>
                               </object>
                               <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">False</property>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
                                 <property name="position">1</property>
                               </packing>
                             </child>
@@ -1973,7 +1973,7 @@ Matriz</property>
                         <property name="can_focus">False</property>
                         <property name="spacing">15</property>
                         <child>
-                          <object class="GtkLabel" id="label_base_app_2">
+                          <object class="GtkLabel" id="label_resultado_LU">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">Resultado</property>
