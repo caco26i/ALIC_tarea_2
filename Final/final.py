@@ -414,9 +414,9 @@ def lu(A):
                 L[j, i] = U[j, i]/U[i, i]
                 U[j, i:] = U[j, i:]-L[j, i]*U[i, i:]
                 U[j, i] = 0
-            sbs += "\nL: \n" + str(L) + "\nU: \n" + str (U) + "\n\n"
+            sbs += "\nL: \n" + str(L) + "\n\nU: \n" + str (U) + "\n\n"
 
-        sbs += "L: \n" + str(L) + "\nU: \n" + str (U) + "\n\n"
+        sbs += "L: \n" + str(L) + "\n\nU: \n" + str (U) + "\n\n"
         return (L,U, sbs)
 
     except Warning:
@@ -449,6 +449,8 @@ def lu_equation(A, b):
     :return:
     '''
     L, U, sbs = lu(A)
+
+    sbs += "A: \n" + str(A) + "\n\nb: \n" + str (b) + "\n\n"
 
     # Primero se resuelve Ly = b
     y = np.linalg.solve(L, b)
