@@ -277,7 +277,7 @@ class App4:
                 break
             matriz_elementos.append(temp_list)
 
-        label = self.builder.get_object("label_resultado_LU")
+        label = self.builder.get_object("label_base_app_2")
         if isValid:
             try:
                 L, U = lu(np.array(matriz_elementos))
