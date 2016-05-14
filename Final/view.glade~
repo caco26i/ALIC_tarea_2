@@ -3287,7 +3287,7 @@ Matriz</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <signal name="clicked" handler="button_next_1_app_4" swapped="no"/>
+                        <signal name="clicked" handler="calcular_inversa_app_4" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">False</property>
