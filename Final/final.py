@@ -342,7 +342,7 @@ class App4:
                 label.set_text(stepbystep + "\nEl conjunto solución de la ecuación es: \n x = " + str(x))
 
 
-            except ValueError:
+            except:
                 label.set_text('No tiene solución.')
             app_3.next_page()
 
