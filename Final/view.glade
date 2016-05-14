@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.0 -->
+<!-- Generated with glade 3.16.1 -->
 <interface>
   <requires lib="gtk+" version="3.6"/>
   <object class="GtkListStore" id="list_conjunto_vectores">
@@ -106,6 +106,8 @@
                   <packing>
                     <property name="left_attach">0</property>
                     <property name="top_attach">0</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -127,6 +129,8 @@
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="top_attach">0</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -148,6 +152,8 @@
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="top_attach">1</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -159,6 +165,8 @@
                   <packing>
                     <property name="left_attach">0</property>
                     <property name="top_attach">1</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -177,6 +185,8 @@
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="top_attach">2</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -1266,6 +1276,8 @@ Vectores</property>
                   <packing>
                     <property name="left_attach">0</property>
                     <property name="top_attach">0</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -1287,6 +1299,8 @@ Vectores</property>
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="top_attach">0</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -1304,6 +1318,8 @@ Vectores</property>
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="top_attach">1</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -1944,6 +1960,8 @@ Matriz</property>
                   <packing>
                     <property name="left_attach">0</property>
                     <property name="top_attach">0</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -1965,6 +1983,8 @@ Matriz</property>
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="top_attach">0</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -1982,6 +2002,8 @@ Matriz</property>
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="top_attach">1</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -2731,6 +2753,8 @@ Ecuacion</property>
                   <packing>
                     <property name="left_attach">0</property>
                     <property name="top_attach">0</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -2752,6 +2776,8 @@ Ecuacion</property>
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="top_attach">0</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -2769,6 +2795,8 @@ Ecuacion</property>
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="top_attach">1</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -3043,7 +3071,7 @@ Matriz</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkEntry" id="entry_matriz_app_4_2_5">
+                                  <object class="GtkEntry" id="entry_matriz_app_4_2_4">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="invisible_char">●</property>
@@ -3124,7 +3152,7 @@ Matriz</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkEntry" id="entry_matriz_app_4_3_">
+                                  <object class="GtkEntry" id="entry_matriz_app_4_3_4">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="invisible_char">●</property>
@@ -3259,6 +3287,7 @@ Matriz</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <signal name="clicked" handler="calcular_inversa_app_4" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -3285,13 +3314,33 @@ Matriz</property>
               </packing>
             </child>
             <child>
-              <placeholder/>
+              <object class="GtkScrolledWindow" id="scrolledwindow1">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="shadow_type">in</property>
+                <child>
+                  <object class="GtkViewport" id="viewport1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkLabel" id="label_resultado_app_4">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Resultado</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="position">2</property>
+              </packing>
             </child>
             <child type="tab">
               <object class="GtkLabel" id="label48">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">page 3</property>
+                <property name="label" translatable="yes">Resultado</property>
               </object>
               <packing>
                 <property name="position">2</property>

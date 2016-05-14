@@ -355,13 +355,43 @@ class App4:
         combobox_orden_matriz = self.builder.get_object("combobox_orden_app4")
         combobox_orden_matriz_value = self.get_combo_value(combobox_orden_matriz)
         if combobox_orden_matriz_value is not None:
+            print("DEBUG")
             self.orden_matrix_app_4 = combobox_orden_matriz_value
+            print(self.orden_matrix_app_4)
             for i in range(0, 5):
                 for j in range(0, 5):
                     # entry_matriz_app_4_1_0
                     field = self.builder.get_object("entry_matriz_app_4_" + str(i) + "_" + str(j))
                     field_visible = j < self.orden_matrix_app_4 and i < self.orden_matrix_app_4
                     field.set_visible(field_visible)
+            app_4.next_page()
+
+    def calcular_inversa_app_4(self, button):
+        app_4 = self.builder.get_object("App_4")
+        isValid = True
+        matriz_elementos = []
+        # este es para recorrer la matriz
+        for i in range(0, self.orden_matrix_app_4):
+            temp_list = []
+            for j in range(0, self.orden_matrix_app_4):
+                field = self.builder.get_object("entry_matriz_app_4_" + str(i) + "_" + str(j))
+                if field.get_text().lstrip('-').isdigit():
+                    value_field = float(field.get_text())
+                    temp_list.append(value_field)
+                else:
+                    isValid = False
+                    break
+            if not isValid:
+                break
+            matriz_elementos.append(temp_list)
+        label = self.builder.get_object("label_resultado_app_4")
+        if isValid:
+            try:
+                print(matriz_elementos)
+                # meter logica de la vara, matriz seria matriz_elementos
+                # label.set_text("")
+            except:
+                label.set_text('No tiene solución.')
             app_4.next_page()
 
 
@@ -380,12 +410,14 @@ class App4:
 
 warnings.filterwarnings('error')
 
+
 def forward(A, b, x):
     result = "Por sustitucion hacia adelante, tenemos que: \n"
     for i in range (len (x)):
         result += str(A[i]) + " = " + str(b[i]) + ", " + "x" + str(i + 1) + ": " + str(x[i]) + "\n"
     result += "\n"
     return result
+
 
 def back(A, b, x):
     result = "Por sustitucion hacia atras, tenemos que: \n"
@@ -395,6 +427,7 @@ def back(A, b, x):
         i -= 1
     result += "\n"
     return result
+
 
 def lu(A):
     n = A.shape[0]     # Orden de la matriz
