@@ -387,9 +387,11 @@ class App4:
         label = self.builder.get_object("label_resultado_app_4")
         if isValid:
             try:
-                print(matriz_elementos)
-                # meter logica de la vara, matriz seria matriz_elementos
-                # label.set_text("")
+                A, L, U, sbs = lu_inverse(np.array(matriz_elementos))
+                sbs += ("\n\nAhora se resuelve el producto entre L^-1 y U^-1")
+                sbs += ("\n\nL inverso: \n" + str(L) + "\n\nU inverso: \n" + str(U) + "\n\n")
+                sbs += ("A inverso: \n" + str(A) + "\n\n")
+                label.set_text(sbs)
             except:
                 label.set_text('No tiene solución.')
             app_4.next_page()
@@ -472,7 +474,7 @@ def lu_inverse(A):
     # Al final se multiplican ambas inversas para resolver A inverso
     AInv = np.dot(LInv, UInv)
 
-    return AInv, LInv, UInv
+    return AInv, LInv, UInv, sbs
 
 
 def lu_equation(A, b):
