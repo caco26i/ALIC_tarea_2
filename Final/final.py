@@ -452,10 +452,12 @@ def lu_equation(A, b):
 
     # Primero se resuelve Ly = b
     y = np.linalg.solve(L, b)
+    sbs += "\n\nPrimero se resuelve Ly = b\n\n"
     sbs += forward(L, b, y)
     
     # Despues se resuleve Ux = y
     x = np.linalg.solve(U, y)
+    sbs += "\n\nDespues se resuleve Ux = y\n\n"
     sbs += back (U, y, x)
 
     return x, sbs
