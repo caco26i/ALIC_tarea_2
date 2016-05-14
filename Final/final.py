@@ -3,6 +3,7 @@ import sys
 from gi.repository import Gtk
 import numpy as np
 import warnings
+import pprint
 gi.require_version('Gtk', '3.0')
 
 
@@ -280,7 +281,7 @@ class App4:
         label = self.builder.get_object("label_base_app_2")
         if isValid:
             try:
-                L, U = lu(np.array(matriz_elementos))
+                L, U, sbslu = lu(np.array(matriz_elementos))
                 label.set_text("L = \n" + str(L) + " \n\nU = \n" + str(U))
             except ValueError:
                 label.set_text('No tiene inversa')
@@ -337,9 +338,8 @@ class App4:
         label = self.builder.get_object("label_resultado_app_3")
         if isValid:
             try:
-                x = lu_equation(np.array(matriz_elementos), matriz_b)
-                print("RESULTADO X: " + str(x))
-                label.set_text("La solución de la ecuación es: \n x = " + str(x))
+                x, stepbystep = lu_equation(np.array(matriz_elementos), matriz_b)
+                label.set_text(stepbystep + "\nEl conjunto solución de la ecuación es: \n x = " + str(x))
 
 
             except ValueError:
@@ -380,6 +380,21 @@ class App4:
 
 warnings.filterwarnings('error')
 
+def forward(A, b, x):
+    result = "Por sustitucion hacia adelante, tenemos que: \n"
+    for i in range (len (x)):
+        result += str(A[i]) + " = " + str(b[i]) + ", " + "x" + str(i + 1) + ": " + str(x[i]) + "\n"
+    result += "\n"
+    return result
+
+def back(A, b, x):
+    result = "Por sustitucion hacia atras, tenemos que: \n"
+    i = len (x) - 1
+    while i >= 0:
+        result += str(A[i]) + " = " + str(b[i]) + ", " + "x" + str(i + 1) + ": " + str(x[i]) + "\n"
+        i -= 1
+    result += "\n"
+    return result
 
 def lu(A):
     n = A.shape[0]     # Orden de la matriz
@@ -387,6 +402,7 @@ def lu(A):
     U = np.zeros((n, n), dtype='float64')
     U[:] = A
     np.fill_diagonal(L, 1) #LLena la diagonal L con 1
+    sbs = ""
 
     #Si U[j,i]/U[i,i] es division de 0, no tiene factorizacion
     #se ejecuta el except
@@ -398,10 +414,10 @@ def lu(A):
                 L[j, i] = U[j, i]/U[i, i]
                 U[j, i:] = U[j, i:]-L[j, i]*U[i, i:]
                 U[j, i] = 0
-            # pprint.pprint(L)
-            # pprint.pprint(U)
+            sbs += "\nL: \n" + str(L) + "\nU: \n" + str (U) + "\n\n"
 
-        return (L,U)
+        sbs += "L: \n" + str(L) + "\nU: \n" + str (U) + "\n\n"
+        return (L,U, sbs)
 
     except Warning:
 
@@ -413,7 +429,7 @@ def lu_inverse(A):
     ES la de app 4
     :return:
     """
-    L, U = lu(A)
+    L, U, sbs = lu(A)
     # Primero se resuelve la inversa de L
     LInv = np.linalg.inv(L)
 
@@ -432,12 +448,17 @@ def lu_equation(A, b):
     :param b:
     :return:
     '''
-    L, U = lu(A)
+    L, U, sbs = lu(A)
+
     # Primero se resuelve Ly = b
     y = np.linalg.solve(L, b)
+    sbs += forward(L, b, y)
+    
     # Despues se resuleve Ux = y
     x = np.linalg.solve(U, y)
-    return x
+    sbs += back (U, y, x)
+
+    return x, sbs
 
 if __name__ == "__main__":
     main = App4()
